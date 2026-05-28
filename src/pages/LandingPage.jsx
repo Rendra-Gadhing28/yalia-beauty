@@ -3,6 +3,9 @@ import Home from '../components/layout/Home'
 import AboutUs from '../components/layout/AboutUs'
 import PriceList from '../components/layout/PriceList'
 import Footer from '../components/layout/Footer'
+import Produk from '../components/layout/Produk'
+
+
 
 function LandingPage(){
     return (
@@ -10,6 +13,7 @@ function LandingPage(){
         <Navbar />
         <Home />
         <AboutUs />
+        <Produk />
         <PriceList />
         <Footer />
     </>

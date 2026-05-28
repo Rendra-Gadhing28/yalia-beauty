@@ -1,136 +1,202 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600&display=swap');
 
-:root {
-  /* 🌸 PRIMARY - PINK */
-  --color-primary: #ffc0cb;
-  --color-primary-hover: #ff9fb3;
-  --color-primary-light: #ffe4ec;
-  --color-primary-shadow: #cc8fa0;
-
-  /* 🌿 SECONDARY - COMPLEMENTARY (TEAL) */
-  --color-secondary: #40a9a2;
-  --color-secondary-hover: #2f7f79;
-  --color-secondary-light: #d9f3f1;
-  --color-secondary-shadow: #24635f;
-
-  /* ✨ NEUTRAL */
-  --color-white: #ffffff;
-  --color-text: #1f1f1f;
-  --color-text-secondary: #6b6b6b;
-
-  /* 🟡 ACCENT (GOLD) */
-  --color-accent: #d4af37;
-  --color-accent-shadow: #b8962e;
-
-  /* 🌫️ BACKGROUND */
-  --bg-main: #fff5f8;
-  --bg-card: #ffffff;
-
-  /* 🌑 SHADOW */
-  --shadow-soft: 0 4px 10px rgba(255, 192, 203, 0.3);
-  --shadow-strong: 0 6px 20px rgba(0, 0, 0, 0.15);
+/* FIX: typo "smoth" → "smooth" */
+html {
+  scroll-behavior: smooth;
 }
 
+body {
+  overflow-x: hidden;
+  margin: 0;
+}
 
-.navbar{
-  background: var(--color-primary);
-  z-index: 50;
-  top : 0;
-  right : 0;
-  left: 0;
-  width:auto;
-  height: 3.75em;
-  border-radius: 4px;
-  padding: 0.35em 0.5em;
-  box-shadow: var(--shadow-soft);
+/* --- NAVBAR (tidak berubah) --- */
+.navbar {
   position: fixed;
-  backdrop-filter: blur(10px);
+  background: var(--white);
+  z-index: 50;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 4rem;
+  border-bottom: 1px solid var(--accent);
+  backdrop-filter: blur(14px);
+  padding: 0 2.5rem; /* FIX: hapus vertical padding, pakai height saja */
+  display: flex;        /* tambah ini agar konten navbar center */
+  align-items: center;
 }
 
-
-nav span{
-  color: var(--color-accent);
+nav span {
+  color: var(--accent);
   font-size: 2em;
   font-family: 'Playfair Display', serif;
 }
 
-.nav-line{
+/* --- SECTION HERO --- */
+/* 
+  FIX UTAMA: section pakai grid 1fr 1fr untuk split
+  kiri = teks, kanan = gambar
+  Hapus padding horizontal berlebihan
+*/
+section.home {
+  width: 100%;
+  min-height: 100vh;           /* full tinggi layar */
+  background: var(--color-primary); /* top lebih besar karena ada navbar fixed */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.75rem;
+  align-items: center;         /* PENTING: tengah-tengah vertikal */
+}
+
+/* 
+  FIX: .container jangan pakai padding horizontal lagi
+  karena section sudah punya padding
+*/
+.container {
+  width: 100%;
+  display : flex;
+  flex-direction : flex-column;
+  align-items:center;
+  text : center;
+  justify-content : center;
+  /* hapus padding 3.75rem yang menyebabkan double padding */
+}
+
+@media (max-width: 768px) {
+  #aboutus {
+    padding: 3rem 1.5rem;
+  }
+}
+/* 
+  FIX: .hero tidak perlu flex lagi
+  Biarkan kontennya stack vertikal secara alami
+*/
+.hero {
   display: flex;
-  margin: 0 auto;
+  flex-direction: column;      /* stack teks + tombol ke bawah */
+  align-items: flex-start;
+  gap: 1.5rem;                 /* jarak antar teks, paragraf, tombol */
+}
+
+.hero-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* FIX: .image-hero agar gambar center dan penuh */
+.image-hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-hero img {
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+/* --- RESPONSIVE: tablet & mobile --- */
+@media (max-width: 768px) {
+  section.home {
+    grid-template-columns: 1fr;  /* satu kolom di mobile */
+    padding: 6rem 1.5rem 3rem;
+    gap: 2rem;
+  }
+
+  .image-hero {
+    order: -1;   /* gambar di atas teks di mobile */
+  }
+}
+
+/* --- NAV & LINK (tidak berubah) --- */
+.nav-link {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--dark);
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 2px;
+  transition: color 0.3s;
+}
+
+.nav-line {
+  display: flex;
   justify-content: space-between;
-  align-items:center;
-   margin-left: 0.5em;
+  align-items: center;
+  width: 100%;
 }
 
-ul{
+ul {
   list-style: none;
-  display:flex;
+  display: flex;
+  gap: 0.5rem;
+  padding: 0;
+  margin: 0;
 }
 
-li{
-  display:flex;
-  gap: 8px;
-  justify-content:center;
-  align-items:center;
-  margin: 0 auto;
-  margin-right: 0.5em;
+li {
+  display: flex;
+  align-items: center;
 }
-a{
+
+a {
   text-decoration: none;
   color: var(--color-text);
   font-size: 1em;
 }
 
-.hero {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap:wrap;
+/* FIX: typo "bottom-line" tidak ada titik → selector tidak jalan */
+.bottom-line {
+  position: absolute;
+  background: var(--bg-main);
+  width: 100%;
+  height: 300px;
+  border-radius: 20px 0 0 20px;
+  backdrop-filter: blur(20px);
+  top: 450px;
+  left: 0;
+  opacity: 0.5;
+}
+
+/* --- ANIMASI --- */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+.fade-in-up.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 * {
   box-sizing: border-box;
 }
 
-.hero-text {
-  max-width: 500px;
+.service-card {
+  background-size: cover;
+  background-position: center;
+  border-radius: 12px;
+  height: 300px;
+  position: relative;
 }
 
-.hero-image img {
-  width: 400px;
-}
-
-.home1 {
-  width: 100%;
-  background: var(--color-primary);
-  padding: 80px 20px;
-  height: 600px
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-.image-hero{
-  top: 50px;
-  z-index: 10;
-  position:absolute;
-  right: 3.75em;
-  transform: rotate(-15deg)
-}
-
-bottom-line{
-  position:absolute;
-  background: var(--bg-main);
-  width:100%;
-  display:block;
-  height:300px;
-  border-radius: 20px 0px 0px 20px;
-  backdrop-filter: blur(20px);
-  top: 450px;
+.card-overlay {
+  position: absolute;
+  bottom: 0;
   left: 0;
   right: 0;
-  opacity: 0.5;
+  background: rgba(0,0,0,0.45);
+  padding: 1.5rem;
+  border-radius: 0 0 12px 12px;
+  color: white;
 }
